@@ -8,7 +8,7 @@ preload.prototype = {
       this.load.setPreloadSprite(loadingBar);
     //menu screen
     this.game.load.image("player_single", "assets/sprite_single.png");
-    this.game.load.image("logo", "assets/logo.png");
+    this.game.load.image("logo", "assets/logo.PNG");
     this.game.load.image("start_btn", "assets/start.png");
     this.game.load.image("background", "assets/title_background.png");
     

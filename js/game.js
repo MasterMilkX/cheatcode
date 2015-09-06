@@ -4,15 +4,17 @@ var codeGame = function(game){
   curKey = null;
   codeTxt = null;
   code = null;
+  
+  pick = null;
+  keys = ["up", "down", "left", "right", "A", "B", "X", "Y"];
 };
 codeGame.prototype = {
   create: function(){
-    var background = this.game.add.sprite(0,0, 'background');
-    
-    var pick = Math.floor(Math.random() * 8);
-    var keys = ["up", "down", "left", "right", "a", "b", "x", "y"];
+    pick = Math.floor(Math.random() * 8);
     code = keys[pick];
     
+    var background = this.game.add.sprite(0,0, 'background');
+
     var style = {font: 'bold 8pt Arial', fill: 'white', align: 'left', wordWrap: true, wordWrapWidth: 160, wordWrapHeight: 32};
     codeTxt = this.game.add.text(0, 0, code, style);
     
@@ -30,6 +32,10 @@ codeGame.prototype = {
     
     var quit = this.game.add.button(48, 200, "quit", this.quitGame, this);
     
+  },
+  randomKey: function(){
+    pick = Math.floor(Math.random() * 8);
+    curKey = keys[pick];
   },
   presskey: function(key){
     code += ", " + key;
