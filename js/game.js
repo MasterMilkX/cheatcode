@@ -7,16 +7,16 @@ var codeGame = function(game){
   
   pick = null;
   keys = ["up", "down", "left", "right", "A", "B", "X", "Y"];
+  
+  myCode = [];
 };
 codeGame.prototype = {
   create: function(){
     pick = Math.floor(Math.random() * 8);
     code = keys[pick];
+    myCode = [];
     
     var background = this.game.add.sprite(0,0, 'background');
-
-    var style = {font: 'bold 8pt Arial', fill: 'white', align: 'left', wordWrap: true, wordWrapWidth: 160, wordWrapHeight: 32};
-    codeTxt = this.game.add.text(0, 0, code, style);
     
     var playerGame = this.game.add.sprite(48, 80, "player");
     playerGame.frame = 0;
@@ -38,8 +38,11 @@ codeGame.prototype = {
     curKey = keys[pick];
   },
   presskey: function(key){
-    code += ", " + key;
-    codeTxt.setText(code);
+    myCode.push(key);
+    var col = (myCode.length - 1) % 10;
+    var row = Math.floor((myCode.length - 1) / 10);
+    var keyIcon = this.game.add.sprite(16 * col, 16 * row, key);
+    keyIcon.scale.setTo(0.5,0.5);
   },
   quitGame: function(){
     this.game.state.start("GameOver");
