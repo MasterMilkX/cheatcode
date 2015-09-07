@@ -9,12 +9,15 @@ var codeGame = function(game){
   keys = ["up", "down", "left", "right", "A", "B", "X", "Y"];
   
   myCode = [];
+  codeIcons = null;
 };
 codeGame.prototype = {
   create: function(){
     pick = Math.floor(Math.random() * 8);
     code = keys[pick];
+    
     myCode = [];
+    codeIcons = [];
     
     var background = this.game.add.sprite(0,0, 'background');
     
@@ -38,11 +41,22 @@ codeGame.prototype = {
     curKey = keys[pick];
   },
   presskey: function(key){
+    //if overflowing
+    if(myCode.length % 20 == 0 && codeIcons.length == 20){
+      for(var i = 0; i < 20; i++){
+        codeIcons[i].destroy();
+      }
+    }
+    
+    //add to the code
     myCode.push(key);
+    
+    //make the visual icons
     var col = (myCode.length - 1) % 10;
-    var row = Math.floor((myCode.length - 1) / 10);
+    var row = Math.floor((myCode.length - 1) / 10) % 2;
     var keyIcon = this.game.add.sprite(16 * col, 16 * row, key);
     keyIcon.scale.setTo(0.5,0.5);
+    codeIcons.push(keyIcon);
   },
   quitGame: function(){
     this.game.state.start("GameOver");
