@@ -24,6 +24,9 @@ preload.prototype = {
     this.game.load.image("X", "assets/X.png");
     this.game.load.image("Y", "assets/Y.png");
     
+    this.game.load.image("check", 'assets/check.png');
+    this.game.load.spritesheet("win-lose", "assets/win-lose.png", 128, 128, 2);
+    
     //game over
     this.game.load.image("gameover_logo", "assets/gameover2.png");
     this.game.load.image("menu", "assets/menu.png");
