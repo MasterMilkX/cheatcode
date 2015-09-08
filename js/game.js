@@ -137,7 +137,7 @@ codeGame.prototype = {
       }
       index++;
       
-      if(index == keyCode.length){
+      if(index == keyCode.length && turn == "player"){
         result.frame = 0;
         result.visible = true;
         turn = "end"
