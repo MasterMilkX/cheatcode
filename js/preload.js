@@ -32,7 +32,7 @@ preload.prototype = {
     this.game.load.image("gameover_long_logo", "assets/gameover_long.png");
     this.game.load.image("menu", "assets/menu.png");
     this.game.load.image("play_btn", "assets/play.png");
-    this.game.load.image("score", "assets/score_screen.png");
+    this.game.load.image("scores", "assets/score_screen.png");
     
   },
   create: function(){

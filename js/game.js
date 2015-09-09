@@ -96,7 +96,7 @@ codeGame.prototype = {
       check.visible = false;
       quit.visible = true;
     }else if(turn == "end"){
-      if(this.game.time.now - timeCheck > 2000){
+      if(this.game.time.now - timeCheck > 1500){
         this.quitGame();
       }
     }
@@ -181,14 +181,14 @@ codeGame.prototype = {
         check.visible = false;
         //quit.visible = true;
         turn = "end"
-        this.restartTimer();
+        this.restartTime();
       }
       index++;
       
       if(index == keyCode.length && turn == "player"){
         result.frame = 0;
         result.visible = true;
-        turn = "end"
+        turn = "clear"
         check.visible = true;
         quit.visible = false;
         //this.game.time.events.repeat(Phaser.Timer.SECOND * 3, keyCode.length, function(){this.newSeq();turn = "game";}, this);
@@ -196,7 +196,7 @@ codeGame.prototype = {
     }
   },
   nextStage: function(){
-    if(turn == "end"){
+    if(turn == "clear"){
       index = 0;
       this.newSeq();
       check.visible = false;
@@ -221,7 +221,7 @@ codeGame.prototype = {
     
   },
   quitGame: function(){
-    score = keyCode.length - 2;
-    this.game.state.start("GameOver", true, false, score);
+    score = parseInt(keyCode.length - 1);
+    this.game.state.start("GameOver", true, false, score, "hard");
   }
 }
