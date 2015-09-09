@@ -13,7 +13,7 @@ preload.prototype = {
     this.game.load.image("background", "assets/title_background.png");
     
     //game screen
-    this.game.load.spritesheet("player", "assets/sprite.png", 64, 64, 9);
+    this.game.load.spritesheet("player", "assets/sprite.png", 64, 64, 12);
     this.game.load.image("quit", "assets/quit_btn.png");
     this.game.load.image("up", "assets/up.png");
     this.game.load.image("down", "assets/down.png");
@@ -29,8 +29,10 @@ preload.prototype = {
     
     //game over
     this.game.load.image("gameover_logo", "assets/gameover2.png");
+    this.game.load.image("gameover_long_logo", "assets/gameover_long.png");
     this.game.load.image("menu", "assets/menu.png");
     this.game.load.image("play_btn", "assets/play.png");
+    this.game.load.image("score", "assets/score_screen.png");
     
   },
   create: function(){
