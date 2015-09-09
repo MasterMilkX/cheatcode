@@ -7,7 +7,7 @@ var codeGame = function(game){
   codeTxt = null;
 
   pick = null;
-  keys = ["up", "down", "left", "right", "A", "B", "X", "Y"];
+  keys = [];
   
   myCode = [];
   codeIcons = null;
@@ -21,10 +21,21 @@ var codeGame = function(game){
   result = null;
   timecheck = null;
   timeLimit = 750;
+  
+  mode = null;
 };
 codeGame.prototype = {
+  init: function(gamemode){
+    mode = gamemode;
+  },
   create: function(){
-    //keyCode = ["up", "down", "left", "right"];
+    if(mode == "easy")
+      keys = ["up", "down", "left", "right"];
+    else if(mode == "medium")
+      keys = ["up", "down", "left", "right", "A", "B"];
+    else if(mode == "hard")
+      keys = ["up", "down", "left", "right", "A", "B", "X", "Y"];
+    
     keyCode = [];
     this.newSeq();
     patternInd = 0;
@@ -32,7 +43,12 @@ codeGame.prototype = {
     
     this.restartTime();
     
-    pick = Math.floor(Math.random() * 8);
+    if(mode == "easy")
+      pick = Math.floor(Math.random() * 4);
+    else if(mode == "medium")
+      pick = Math.floor(Math.random() * 6);
+    else if(mode == "hard")
+      pick = Math.floor(Math.random() * 8);
 
     myCode = [];
     codeIcons = [];
@@ -50,24 +66,35 @@ codeGame.prototype = {
     pu.onComplete.add(this.backDefault, this);
     var pd = playerGame.animations.add("down", [4], 3, false);
     pd.onComplete.add(this.backDefault, this);
-    var pa = playerGame.animations.add("A", [5], 3, false);
-    pa.onComplete.add(this.backDefault, this);
-    var pb = playerGame.animations.add("B", [0,6,7,8], 12, false);
-    pb.onComplete.add(this.backDefault, this);
-    var px = playerGame.animations.add("X", [9], 3, false);
-    px.onComplete.add(this.backDefault, this);
-    var py = playerGame.animations.add("Y", [10], 3, false);
-    py.onComplete.add(this.backDefault, this);
+    
+    if(mode == "hard" || mode == "medium"){
+      var pa = playerGame.animations.add("A", [5], 3, false);
+      pa.onComplete.add(this.backDefault, this);
+      var pb = playerGame.animations.add("B", [0,6,7,8], 12, false);
+      pb.onComplete.add(this.backDefault, this);
+    }
+    if(mode == "hard"){
+      var px = playerGame.animations.add("X", [9], 3, false);
+      px.onComplete.add(this.backDefault, this);
+      var py = playerGame.animations.add("Y", [10], 3, false);
+      py.onComplete.add(this.backDefault, this);
+    }
+   
     
     var up = this.game.add.button(64, 48, "up", function(){this.presskey("up")}, this);
     var left = this.game.add.button(16, 96, "left", function(){this.presskey("left")}, this);
     var right = this.game.add.button(112, 96, "right", function(){this.presskey("right")}, this);
     var down = this.game.add.button(64, 144, "down", function(){this.presskey("down")}, this);
     
-    var x = this.game.add.button(16, 48, "X", function(){this.presskey("X")}, this);
-    var y = this.game.add.button(112, 48, "Y", function(){this.presskey("Y")}, this);
-    var a = this.game.add.button(16, 144, "A", function(){this.presskey("A")}, this);
-    var b = this.game.add.button(112, 144, "B", function(){this.presskey("B")}, this);
+    if(mode == "medium" || mode == "hard"){
+      var a = this.game.add.button(16, 144, "A", function(){this.presskey("A")}, this);
+      var b = this.game.add.button(112, 144, "B", function(){this.presskey("B")}, this);
+    }
+    if(mode == "hard"){
+      var x = this.game.add.button(16, 48, "X", function(){this.presskey("X")}, this);
+      var y = this.game.add.button(112, 48, "Y", function(){this.presskey("Y")}, this);
+    }
+    
     
     quit = this.game.add.button(48, 200, "quit", this.quitGame, this);
     quit.visible = false;
@@ -106,7 +133,12 @@ codeGame.prototype = {
     timeCheck = this.game.time.now;
   },
   randomKey: function(){
-    pick = Math.floor(Math.random() * 8);
+    if(mode == "easy")
+      pick = Math.floor(Math.random() * 4);
+    else if(mode == "medium")
+      pick = Math.floor(Math.random() * 6);
+    else if(mode == "hard")
+      pick = Math.floor(Math.random() * 8);
     curKey = keys[pick];
   },
   newSeq: function(){
@@ -222,6 +254,6 @@ codeGame.prototype = {
   },
   quitGame: function(){
     score = parseInt(keyCode.length - 1);
-    this.game.state.start("GameOver", true, false, score, "hard");
+    this.game.state.start("GameOver", true, false, score, mode);
   }
 }
