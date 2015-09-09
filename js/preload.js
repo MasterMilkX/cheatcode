@@ -9,7 +9,9 @@ preload.prototype = {
     //menu screen
     this.game.load.image("player_single", "assets/sprite_single.png");
     this.game.load.image("logo", "assets/logo.png");
-    this.game.load.image("start_btn", "assets/start.png");
+    this.game.load.image("easy", "assets/easy.png");
+    this.game.load.image("medium", "assets/medium.png");
+    this.game.load.image("hard", "assets/hard.png");
     this.game.load.image("background", "assets/title_background.png");
     
     //game screen
