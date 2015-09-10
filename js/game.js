@@ -23,6 +23,8 @@ var codeGame = function(game){
   timeLimit = 500;
   
   mode = null;
+  
+  restartIcons = false;
 };
 codeGame.prototype = {
   init: function(gamemode){
@@ -127,9 +129,18 @@ codeGame.prototype = {
         }
       }
       //this.game.time.events.repeat(Phaser.Timer.SECOND * 1, keyCode.length, this.displayPattern, this);
-    }else if(turn == "player"){
+    }else if(turn == "player_erase"){
       check.visible = false;
       quit.visible = true;
+      if(this.game.time.now - timeCheck > timeLimit && codeIcons.length > 0 && restartIcons == false){
+        for(var i = 0; i < codeIcons.length; i++){
+          codeIcons[i].destroy();
+        }
+        codeIcons = [];
+        restartIcons = true;
+        turn = "player"
+      }
+      
     }else if(turn == "end"){
       if(this.game.time.now - timeCheck > 1500){
         this.quitGame();
@@ -177,9 +188,11 @@ codeGame.prototype = {
       if(patternInd == keyCode.length){
         //check.visible = true;
         //turn = "wait";
-        turn = "player";
+        turn = "player_erase";
         myCode = [];
         index = 0;
+        this.restartTime();
+        restartIcons = false;
       }
         
     }
