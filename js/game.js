@@ -20,7 +20,7 @@ var codeGame = function(game){
   check = null;
   result = null;
   timecheck = null;
-  timeLimit = 750;
+  timeLimit = 500;
   
   mode = null;
 };
@@ -35,6 +35,14 @@ codeGame.prototype = {
       keys = ["up", "down", "left", "right", "A", "B"];
     else if(mode == "hard")
       keys = ["up", "down", "left", "right", "A", "B", "X", "Y"];
+    
+    if(mode == "easy")
+      timeLimit = 1000;
+    else if(mode == "medium")
+      timeLimit = 750;
+    else if(mode == "hard")
+      timeLimit = 500;
+    
     
     keyCode = [];
     this.newSeq();

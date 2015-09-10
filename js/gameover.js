@@ -78,6 +78,6 @@ gameover.prototype = {
     this.game.state.start("MenuScreen");
   },
   playGame: function(){
-    this.game.state.start("CodeGame")
+    this.game.state.start("CodeGame", true, false, mode)
   }
 }
