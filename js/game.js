@@ -45,7 +45,6 @@ codeGame.prototype = {
     else if(mode == "hard")
       timeLimit = 500;
     
-    
     keyCode = [];
     this.newSeq();
     patternInd = 0;
@@ -146,6 +145,12 @@ codeGame.prototype = {
         this.quitGame();
       }
     }
+    else if(turn == "wait_stage"){
+      if(this.game.time.now - timeCheck > 750){
+        turn = "clear";
+        this.nextStage();
+      }
+    }
     
   },
   restartTime: function(){
@@ -241,9 +246,9 @@ codeGame.prototype = {
       if(index == keyCode.length && turn == "player"){
         result.frame = 0;
         result.visible = true;
-        turn = "clear"
-        check.visible = true;
+        turn = "wait_stage"
         quit.visible = false;
+        this.restartTime();
         //this.game.time.events.repeat(Phaser.Timer.SECOND * 3, keyCode.length, function(){this.newSeq();turn = "game";}, this);
       }
     }

@@ -1,10 +1,12 @@
 var menuScreen = function(game){
-  patternInd = 0;
-  
+  pattInd = 0;
+
 };
 
 menuScreen.prototype = {
   create: function(){
+    pattInd = 0;
+    
     var background = this.game.add.sprite(0,0, 'background');
     
     var logo = this.game.add.sprite(0, 2, "logo");
@@ -20,31 +22,26 @@ menuScreen.prototype = {
   playGame: function(mode){
     this.game.state.start("CodeGame", true, false, mode);
   },
-  newSeq: function(){
-    this.randomKey();
-    keyCode.push(curKey);
-    //console.log(keyCode);
-  },
   displayPattern: function(){
       var pick = Math.floor(Math.random() * 8);
       var keys = ["up", "down", "left", "right", "A", "B", "X", "Y"];
       var key = keys[pick];
     
       //make the visual icons
-      var col = patternInd % 10;
-      var row = Math.floor(patternInd / 10) + 2;
+      var COL = pattInd % 10;
+      var ROW = Math.floor(pattInd / 10) + 2;
       
-      if((row >= 8 && row <= 13) && (col >= 2 && col <= 7)){          //buttons
+      if((ROW >= 8 && ROW <= 13) && (COL >= 2 && COL <= 7)){          //buttons
           
-      }else if((row >= 3 && row <= 6) && (col >= 3 && col <= 6)){     //sprite
+      }else if((ROW >= 3 && ROW <= 6) && (COL >= 3 && COL <= 6)){     //sprite
         
       }else{
-        var keyIcon = this.game.add.sprite(16 * col, 16 * row, key);
+        var keyIcon = this.game.add.sprite(16 * COL, 16 * ROW, key);
         keyIcon.scale.setTo(0.5,0.5);
       }
         
 
-      patternInd++;
+      pattInd++;
     
   },
 };
